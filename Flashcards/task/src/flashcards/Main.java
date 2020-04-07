@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Main {
     private LinkedHashMap<String, String> cardMap;
     private Scanner scanner;
-    private boolean gameIsActive;
+    private boolean gameIsActive; //boolean naamgeving met is.. laten beginnen
 
     private Main() {
         this.scanner = new Scanner(System.in);
@@ -69,7 +69,7 @@ public class Main {
 
         int cardsImported = 0;
 
-        try (Scanner scanner = new Scanner(file)) {
+        try (Scanner scanner = new Scanner(file)) { // scanner hier een andere naam geven (nu hetzelfde als de data member)
             while (scanner.hasNext()) {
                 String cardQuestion = scanner.nextLine();
                 String cardDefinition = scanner.nextLine();
@@ -78,7 +78,7 @@ public class Main {
                 cardsImported++;
             }
             System.out.println(cardsImported + " cards have been loaded.");
-        } catch (Exception e) {
+        } catch (Exception e) { // Probeer altijd de exacte exceptie af te vangen, dus hier wsl een FileNotFoundException. Tenzij er een goede reden voor is.
             System.out.println("File not found.");
         }
     }
@@ -91,11 +91,11 @@ public class Main {
 
         try (FileWriter cardWriter = new FileWriter(file, false)) {
             for (String cardQuestion : cardMap.keySet()) {
-                String exportLine = cardQuestion + "\n" + cardMap.get(cardQuestion) + "\n";
+                String exportLine = cardQuestion + "\n" + cardMap.get(cardQuestion) + "\n"; //Waarom niet in stukjes schrijven? hoef je zelf geen \n toe te voegen.
                 cardWriter.write(exportLine);
                 numberOfSavedCards++;
             }
-        } catch (Exception e) {
+        } catch (Exception e) { // Exceptie verbeteren
             System.out.println("Something went wrong: \n" + e);
         }
         System.out.println(numberOfSavedCards + " cards have been saved.");
@@ -105,7 +105,7 @@ public class Main {
         System.out.println("The card:");
         String cardQuestion = scanner.nextLine();
 
-        if (cardMap.containsKey(cardQuestion)) {
+        if (cardMap.containsKey(cardQuestion)) { // Probeer de indentie zo min mogelijk te houden. Ask how if needed.
             System.out.println("The card \"" + cardQuestion + "\" already exists.");
         } else {
             System.out.println("The definition of the card:");
@@ -128,7 +128,7 @@ public class Main {
                 break;
             }
         }
-        return rightCardQuestion;
+        return rightCardQuestion; // Deze return kan volgens mij ergens anders!
     }
 
     private void runFlashCardGame() {
@@ -139,7 +139,7 @@ public class Main {
 
         Object[] cardQuestionList = cardMap.keySet().toArray();
 
-        for (int i = 0; i < numberOfQuestions; i++) {
+        for (int i = 0; i < numberOfQuestions; i++) { // inner for-loop in een aparte methode??
             String cardQuestion = cardQuestionList[randomised.nextInt(cardQuestionList.length)].toString();
 
             System.out.println("Print the definition of \"" + cardQuestion + "\":");
